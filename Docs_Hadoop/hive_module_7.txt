@@ -1,0 +1,16 @@
+Hive Assignment 7
+
+advanced hive codes.
+
+1)joins 
+
+2)partition & Bucketing (difference between static and dynamic partition / sample senarion for static partion)
+
+3) custome map reduce code for Hive Fuctions.(python or java)
+
+4) Hive Index
+
+5) Hive View
+
+6) using hive in java though thrift server.
+
