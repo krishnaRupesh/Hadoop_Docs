@@ -1,0 +1,7 @@
+
+We created Parquet to make the advantages of compressed, efficient columnar data representation available to any project in the Hadoop ecosystem.
+Parquet is built to support very efficient compression and encoding schemes. Multiple projects have demonstrated the performance impact of applying the right compression and encoding scheme to the data. Parquet allows compression schemes to be specified on a per-column level, and is future-proofed to allow adding more encodings as they are invented and implemented.
+
+
+
+https://parquet.apache.org/documentation/latest/
