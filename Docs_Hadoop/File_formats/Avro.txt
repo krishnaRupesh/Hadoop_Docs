@@ -8,6 +8,10 @@ Avro has a schema-based system. A language-independent schema is associated with
 
 Avro depends heavily on its schema. It allows every data to be written with no prior knowledge of the schema. It serializes fast and the resulting serialized data is lesser in size. Schema is stored along with the Avro data in a file for any further processing.
 
+Avro stores both the data definition and the data together in one message or file making it easy for programs to dynamically understand the information stored in an Avro file or message.
+
+Avro stores the data definition in JSON format making it easy to read and interpret, the data itself is stored in binary format making it compact and efficient. Avro files include markers that can be used to splitting large data sets into subsets suitable for MapReduce processing.
+
 Like Avro, there are other serialization mechanisms in Hadoop such as Sequence Files, Protocol Buffers, and Thrift.
 
 Features of Avro
@@ -47,3 +51,6 @@ Step 4 − Deserialize the data using deserialization API provided for Avro, whi
 Reference:
 https://www.tutorialspoint.com/avro/avro_overview.htm
 https://en.wikipedia.org/wiki/Apache_Avro
+https://fileinfo.com/extension/avro
+https://docs.databricks.com/spark/latest/data-sources/read-avro.html
+http://geoinsyssoft.com/avro-file-format/
