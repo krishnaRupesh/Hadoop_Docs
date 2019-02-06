@@ -1,0 +1,49 @@
+Avro
+
+========================
+
+Avro is a remote procedure call and data serialization framework developed within Apache's Hadoop project. It uses JSON for defining data types and protocols, and serializes data in a compact binary format. Its primary use is in Apache Hadoop, where it can provide both a serialization format for persistent data, and a wire format for communication between Hadoop nodes, and from client programs to the Hadoop services.
+
+Avro has a schema-based system. A language-independent schema is associated with its read and write operations. Avro serializes the data which has a built-in schema. Avro serializes the data into a compact binary format, which can be deserialized by any application.
+
+Avro depends heavily on its schema. It allows every data to be written with no prior knowledge of the schema. It serializes fast and the resulting serialized data is lesser in size. Schema is stored along with the Avro data in a file for any further processing.
+
+Like Avro, there are other serialization mechanisms in Hadoop such as Sequence Files, Protocol Buffers, and Thrift.
+
+Features of Avro
+========================
+
+Avro is a language-neutral data serialization system.
+
+It can be processed by many languages (currently C, C++, C#, Java, Python, and Ruby).
+
+Avro creates binary structured format that is both compressible and splittable. Hence it can be efficiently used as the input to Hadoop MapReduce jobs.
+
+Avro provides rich data structures. For example, you can create a record that contains an array, an enumerated type, and a sub record. These datatypes can be created in any language, can be processed in Hadoop, and the results can be fed to a third language.
+
+Avro schemas defined in JSON, facilitate implementation in the languages that already have JSON libraries.
+
+Avro creates a self-describing file named Avro Data File, in which it stores data along with its schema in the metadata section.
+
+Avro is also used in Remote Procedure Calls (RPCs). During RPC, client and server exchange schemas in the connection handshake.
+
+How to use Avro?
+==========================
+
+Step 1 − Create schemas. Here you need to design Avro schema according to your data.
+
+Step 2 − Read the schemas into your program. It is done in two ways −
+
+By Generating a Class Corresponding to Schema − Compile the schema using Avro. This generates a class file corresponding to the schema
+
+By Using Parsers Library − You can directly read the schema using parsers library.
+
+Step 3 − Serialize the data using the serialization API provided for Avro, which is found in the package org.apache.avro.specific.
+
+Step 4 − Deserialize the data using deserialization API provided for Avro, which is found in the package org.apache.avro.specific.
+
+
+
+Reference:
+https://www.tutorialspoint.com/avro/avro_overview.htm
+https://en.wikipedia.org/wiki/Apache_Avro

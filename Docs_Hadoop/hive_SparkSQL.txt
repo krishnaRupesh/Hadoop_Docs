@@ -1,0 +1,21 @@
+hive with SparkSQL
+
+import org.apache.spark.sql.hive._
+
+val hiveCtx = new org.apache.spark.sql.hive.HiveContext(sc)
+
+hiveCtx.sql("show tables").show()
+
+hiveCtx.cacheTable("employee2")  //store it in ram
+
+
+hiveCtx.sql("select * from employee2").show()
+
+
+
+// creating hive table from dataframe
+
+val df =hiveCtx.sql("select * from employee2")
+
+df.saveAsTable("emp2)"
+
