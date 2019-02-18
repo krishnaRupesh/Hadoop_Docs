@@ -1,0 +1,28 @@
+[Hash(column(s))] MOD [Number of buckets]
+
+for int it is int
+for String it uses hashCode() of string
+
+Advantages
+
+Fast Map side Joins – If two tables are bucketed by the same column(s) into same number of buckets and the join is performed on the bucketed column(s), then hive can do efficient map side join by reading the same bucket from both the tables and performing a join, as all the data for similar records will be present in the corresponding bucket from both the tables. If the records are sorted inside each bucket, then hive can join the data using merge, which is a linear time operation. Bucketing will help only when the join key and bucketing key are the same.
+
+Efficient Group by – If the group by is performed on the bucketed column(s), then aggregations can be performed in the combiner. This will reduce network traffic by sending less data to reducers.
+
+Sampling – Using Bucketing we can run queries on a sample of data from the table. This is beneficial while testing, so that we need not run our queries on whole data.
+
+Bucket Sampling :
+SELECT *  FROM FO_RECORD TABLESAMPLE (BUCKET 1 OUT OF 4 AT emp_id);
+Block Sampling:
+SELECT * FROM FO_RECORD TABLESAMPLE (20 PERCENT);
+
+
+How to decide how many buckets
+===========================================
+totaldata/blocksize < number of buckets
+
+
+
+
+https://stackoverflow.com/questions/30594038/how-hashing-works-in-bucketing-for-hive
+http://myitlearnings.com/bucketing-in-hive/
