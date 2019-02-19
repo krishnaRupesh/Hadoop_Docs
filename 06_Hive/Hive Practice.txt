@@ -57,6 +57,8 @@ sampling in bucekting
 SELECT * FROM empbuck1 TABLESAMPLE (BUCKET 1 OUT OF 4 on empid); 
 
 SELECT * FROM empbuck1 TABLESAMPLE (20 PERCENT);
+SELECT * FROM empbuck1 TABLESAMPLE(100M) s; // s is alias name and M indicates MB (100MB)
+SELECT * FROM source TABLESAMPLE(10 ROWS);
 
 Disadvantages,
 
