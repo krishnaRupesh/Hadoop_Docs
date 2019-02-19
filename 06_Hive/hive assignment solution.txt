@@ -1,0 +1,18 @@
+hive> 
+
+show databases;
+ 
+create database krishnarupesh;
+
+use krishnarupesh;
+show tables;
+  
+create external table nyse(`exchange` String,stock_symbol String,date Date ,stock_price_open Double,stock_price_high double ,stock_price_low Double,stock_price_close Double,stock_volume Double,stock_price_adj_close Double)row format delimited fields terminated by ',' stored as textfile;
+
+LOAD DATA INPATH '/user/edureka_344329/Hive' OVERWRITE INTO TABLE nyse;
+
+select a.stock_symbol, b.stock_symbol,year(a.DATE), month(a.DATE),(AVG(a.STOCK_PRICE_HIGH*b.STOCK_PRICE_HIGH) - (AVG(a.STOCK_PRICE_HIGH)*AVG(b.STOCK_PRICE_HIGH))) from nyse a join nyse b on a.DATE=b.DATE where a.stock_symbol<b.STOCK_SYMBOL group by a.stock_symbol, b. stock_symbol,year(a.DATE), month(a.DATE);
+
+create external table nyseByYear (`exchange` String,stock_symbol String,stock_price_open Double,stock_price_high double ,stock_price_low Double,stock_price_close Double,stock_volume Double,stock_price_adj_close Double) partitioned by (date Date) row format delimited fields terminated by ',' stored as textfile;
+
+from nyse ny insert overwrite table nyseByYear partition (date) select ny.`exchange`,ny.stock_symbol,ny.stock_price_open,ny.stock_price_high,ny.stock_price_low,ny.stock_price_close,ny.stock_volume,ny.stock_price_adj_close,ny.date where year(ny.date)=2008;

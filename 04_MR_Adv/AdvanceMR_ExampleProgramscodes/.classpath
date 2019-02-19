@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Combiner_Partitioner"/>
+	<classpathentry kind="src" path="CountersSample"/>
+	<classpathentry kind="src" path="CustomInputFormat"/>
+	<classpathentry kind="src" path="DistributedCache"/>
+	<classpathentry kind="src" path="ReduceJoinProgram"/>
+	<classpathentry kind="src" path="SequenceFile_Example"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/usr/lib/hadoop-2.8.1/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.8.1.jar"/>
+	<classpathentry kind="lib" path="/usr/lib/hadoop-2.8.1/share/hadoop/common/hadoop-common-2.8.1.jar"/>
+	<classpathentry kind="lib" path="/usr/lib/hadoop-2.8.1/share/hadoop/mapreduce/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="/usr/lib/hadoop-2.8.1/share/hadoop/common/lib/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

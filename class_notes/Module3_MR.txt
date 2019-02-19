@@ -1,0 +1,517 @@
+
+
+
+
+HADOOP IS OPTIMISED TO PROCESS ENTIRE DATA SET QUICKER  (MAPREDUCE FRAMEWORK)
+
+HADOOP
+
+	==> HDFS
+	==> YARN  (MR PROCESSING FRAMEWORK )
+		--> APACHE SPARK  --> SparkSQL, SparkML, SparkStreaming
+		--> STORM
+		--> GIRAPH
+
+
+CORE-SITE.XML  --> COMMON TO BOTH HDFS+YARN
+-------------------------------------------
+when you request for file Read/Write  	--> Client lib has to know where is the file
+when you process a file 		--> Client lib has to know where is the file
+
+
+DATA PROCESSING
+---------------
+1. DATA LOADING				==> COPY COMMANDS, SQOOP, FLUME
+2. DATA PREPARATION + ANALYSIS
+3. DATA PRESENTATION
+
+
+
+MapReduce	==> Parallel Distributed Fault Tolerant Processing System.
+
+
+NON-HADOOP --> LIMITATIONS
+--------------------------
+1. SPLIT THE DATA AND MANAGE WITH FAULT TOLERANCE			==> HDFS
+
+2. PROCESSING DATA IN PARALLEL WITH FAULT TOLERANCE			==> YARN
+
+3. AGGREGATION/CONSOLIDATION 						==> SHUFFLING
+
+
+
+MR PROGRAMMING
+==============
+FOR ANY USE CASE
+
+==> MAP Program + REDUCE Program + DRIVER Program 
+
+First we write 3 programs and create jar file  and execute
+
+hadoop jar jar_fn prog_name input_path output_path (HDFS)
+
+
+
+
+EMP.DAT		==> 200MB		
+
+==> EMPID,FN,LN,AGE,PROF,SAL
+
+==> EMPID	FN	LN	AGE	PROF	SAL
+
+==> 
+
+<EMP>
+<EMPID>
+</EMPID>
+<FN>
+</FN>
+....
+
+</EMP>
+
+
+
+
+
+1.FIND TOTAL EMP > 2500$ SAL
+
+1. FIRST WE NEED TO COPY DATA TO HDFS (BLOCKS + REPL)
+
+
+BLOCK1	==> 128MB	==> MAPPER1	==> 4000
+BLOCK2	==>  72MB	==> MAPPER2	==> 2000
+
+
+
+
+2. WRITE THE PROGRAM
+====================
+
+1. WRITE THE MAP CLASS AND IMPLEMENT MAP METHOD
+
+	==> MAP METHODS GETS/READS DATA FROM THE INPUT FILE 			==> INPUTFORMAT
+	==> WRITE BUSINESS LOGIC						==> DEVELOPER
+	==> WRITE THE OUTPUT							==> DEVELOPER
+
+	==> INTERMEDIATE/TEMPORARY	==> WRITTEN IN THE MACHINE WHERE MAPPER RUNS (TMP FOLDER)		
+
+YARN WILL TAKE CARE OF CREATING MULTIPLE INSTANCES OF MAPPERS AND RUN IN PARALLEL ON ALL THE BLOCKS 
+MR FRAMEWORK WILL COLLECT ALL THE MAPPERS OUTPUT AND GIVES TO REDUCER (SHUFFLING)
+
+2. WRITE THE REDUCE CLASS AND IMPLEMENT REDUCE METHOD
+
+	==> REDUCE METHODS GETS/READS ALL THE MAPPERS OUTPUT
+	==> AGGREGATION/CONSOLIDATION 						==> DEVELOPER
+	==> WRITE THE OUTPUT							==> DEVELOPER
+
+	FINAL OUTPUT	==> STORED ON HDFS (BLOCKS + REPL)
+
+
+
+DATA FLOW
+---------
+MAPPERS INPUT			==> INPUTFORMAT CLASS			==> k/v PAIRS
+MAPPERS OUTPUT			==> DEVELOPER				==> k/v PAIRS
+REDUCERS INPUT			==> SAME AS MAPPERS OUTPUT		==> k/v PAIRS
+REDUCERS OUTPUT			==> DEVELOPER				==> k/v PAIRS
+
+
+
+INPUTFORMAT CLASS GENERATES K/V PAIR FROM THE INPUT FILE (DATA) AND GIVES TO THE MAPPERS
+
+
+NUMBER OF MAPPERS	==> BASED ON THE SIZE OF THE DATA
+
+200MB	==> 2 MAPPERS
+500MB	==> 4 MAPPERS
+1GB	==> 8 MAPPERS
+
+
+NUMBER OF BLOCKS	==> NUMBER OF INPUTSPLITS	==> NUMBER OF MAPPERS
+
+NUMBER OF REDUCERS IS BY DEFAULT ONE (IT RUNS IN ANY OF THE MACHINE-YARN) ==> CONFIGURE MORE THAN ONE 
+
+
+
+INPUTFORMAT CLASS DECIDES WHAT SHOULD BE INPUT TO THE MAPPERS
+
+	==> INPUTSPLITS JUST RECORD BY RECORD REF OF THE DATA 
+	==> RECORDREADER
+
+
+BY DEFAULT WE HAVE TextInputFormat CLASS  ==> Plain Text files, csv files, tsv files
+
+xmlInputFormat class	==> xml files
+
+SequenceFileFormat	==> binary files  (We create custom K/V pairs)
+
+
+
+
+
+
+
+WORDCOUNT	
+=========
+sample.txt 200 mb	==> plain text file	==> Unstructured DATA
+=================
+
+1. when you copy/move a file to hdfs --> client lib of hadoop will cut the file into blocks.
+
+b1- data--128 mb
+
+welcome to hadoop learning (CR/NewLine ==> ENTER KEY)
+hadoop learining made easy  (CR/NewLine)
+.......
+
+b2- data--72 mb
+
+edureka welcome you to hadoop learning  (CR/NewLine)
+to complete hadoop echo system  (CR/NewLine)
+.......
+
+
+INPUTFORMATCLASS GENERATES INPUT TO THE MAPPERS
+
+DEFAULT INPUTFORMATCLASS IS TextInputFormat WHICH GENERATES INPUT TO THE MAPPERS
+
+TextInputFormat class generates K/V from the data and gives to the mappers 
+(Any text file --> csv,tsv,plainTextfiles)
+
+ALWAYS TextInputFormat CLASS GENERATES BYTEOFFSET AS KEY AND ENTIRE LINE AS VALUE
+
+
+Key	==> ByteOffset (BYTE LOCATION)
+Value	==> Entire LIne
+
+DATA
+====
+
+b1- data--128 mb
+
+welcome to hadoop learning (CR/NewLine ==> ENTER KEY)
+hadoop learining made easy  (CR/NewLine)
+.......
+
+b2- data--72 mb
+
+edureka welcome you to hadoop learning  (CR/NewLine)
+to complete hadoop echo system  (CR/NewLine)
+.......
+
+map1 input details  ( single K/V pair  	==> Mapper method will be called for every Single K/V pair 
+------------------
+					==> N number of lines means N number of times map method is called )
+0, welcome to hadoop learning
+26, hadoop learining made easy
+.....
+==========================================================
+map2 input details
+------------------
+0, edureka welcome you to hadoop learning
+30, to complete hadoop echo system
+.....
+
+
+
+Key	==> ByteOffset		==> long	==> LongWritable
+Value	==> Entire LIne		==> String	==> Text
+
+java primitive
+data types		Wrapper Classes
+============		===============
+int			IntWritable
+float			FloatWritable
+long			LongWritable
+double			DoubleWritable
+.....			....
+String			Text
+
+TextInputFormat class generates LongWritable as key and Text as value that is ByteOffset and Entire_Line
+
+
+
+
+
+BLOCK1	==> 128MB	==> x Number of lines ==> Mapper1's map method is called 'x' number of times
+
+BLOCK2	==>  72MB	==> y Number of lines ==> Mapper2's map method is called 'y' number of times
+
+
+
+
+Map Logic ( this gets single k/v pair )
+=========
+1. read the value 
+2. split words
+3. write ( each word, 1 )
+
+map1 output
+==========
+welcome,1
+to,1
+hadoop,1
+learning,1
+hadoop,1
+learining,1
+made,1
+easy,1
+......
+map2 output
+===========
+edureka,1
+welcome,1
+you,1
+to,1
+hadoop,1
+learning,1
+to,1
+complete,1
+hadoop,1
+echo,1
+system,1
+.......
+
+MR Framework prepares list of values for a unique KEY from all the Mappers and gives to the reducer
+
+REDUCERS INPUT (Single K/V pair. List values for a key)
+==============
+welcome, [ 1,1 ]
+to, [ 1,1,1 ]
+hadoop, [ 1,1,1,1 ]
+......
+
+REDUCER OUTPUT
+==============
+welcome,2
+to,3
+hadoop,4
+
+This is we are writing Text and Intwritable as the output
+
+
+
+hadoop jar jar_fn prog_name input_path output_path
+
+EACH JOB/APPLN WILL HAVE n NUMBER OF TASKS (MAP,REDUCE,COMBINERS)
+
+Hadoop1
+=======
+JOBTRACKER --> MASTER	--> OVERBURDENED
+
+	COMPLETE CLUSTER LEVEL RESOURCE MANAGEMENT (Each slave how much memory/cpu is free for processing)
+	SCHEDULING
+	DISTRIBUTING 
+	MONITORING OF EACH JOB/APPLICATION
+
+TASKTRACKER --> SLAVE
+	ALLOCATE RESOURCES (RAM/CPU) FOR TASKS
+
+HADOOP2	==> YARN
+=======
+RESOURCEMANAGER	--> MASTER
+
+	COMPLETE CLUSTER LEVEL RESOURCE MANAGEMENT 
+	SCHEDULING
+	DISTRIBUTING 
+
+NODEMANAGER 	--> SLAVE
+
+	ALLOCATE RESOURCES (RAM/CPU) FOR TASKS/ApplicationMasters --> CONTAINERS 
++
+
+APPLICATION MASTER	--> ONE PER APPLICATION/JOB
+			--> SHORT LIFE (ONE THE APPLICATION IS FINISHED THIS WILL BE GETTING CLOSED)
+			--> Yet Another Resource Negotiator
+
+	MONITORING OF EACH JOB/APPLICATION
+
+
+
+SUBMIT JOB/APPLICATION
+======================
+hadoop jar jar_fn prog_name input_path output_path
+
+
+1. When you submit job, Client Lib takes the request and prepares complete JOB_OBJECT and gives to the 
+   ResourceManager 
+
+2. ResourceManager first creates ApplicationMaster in any of the NodeManager.
+
+3. ApplicationMaster first takes complete Resouce details from ResourceManager (where to run mappers 
+   and reducers)
+
+4. ApplicationMaster asks respective  Nodemanagers to create containers (allocate resources) 
+   for Mappers and then Reducers (at this time Mappers will start first and then Reducers will run)
+
+5. Once Mappers and Reducers finish then  ApplicationMaster notifies to the Client & ResourceManager
+   and get closed. 
+
+
+
+
+
+
+InputFormat Class
+
+DOES 2 STEPS INTERNALLY
+
+	1. CREATES INPUTSPLITS  --> logical file  --> Just Rec by Rec ref of the data
+	2. CREATES RECORDREADER (THIS IS THE ACTUAL CLASS WHICH GENERATES INPUT K/V FROM THE DATA
+				 BY REFERING REC BY REC REFERENCE GIVEN BY INPUTSPLITS )
+
+
+
+	==> Default InputFormat class TextInputFormat 
+
+	==> First creates InputSplits --> logical file  --> Just Rec by Rec ref of the data
+
+
+NUmber of blocks	==> Number Of InputSplits	==> Number of Mappers
+
+
+
+
+NUMBER OF REDUCERS
+==================
+
+If we need multiple outputs we can go for multiple reducers
+
+Emp.dat	--> employees from 5 states  --> Each state if we need output in separate file
+
+POS data	==> Month-wise report ==> 12 reducers
+
+Movie CD Selling data ==> Weekday-wise how many CDs have been sold 	==>  7 reducers
+
+
+
+IF we have multiple reducers
+============================
+INTERMEDIATE DATA OF THE SAME KEY GOES TO SAME REDUCER (PARTICULAR KEY IS GIVEN TO ANY ONE OF THE REDUCER)
+
+
+	==> we dont know which key goes to which reducer
+
+PARTITIONER
+===========
+
+	==> THIS DECIDES WHICH REDUCERS IS RESPONSIBLE FOR A KEY
+
+
+
+1. COPY THE DATA TO HADOOP ==> RDBMS/EXCEL/STREAMING  ==> STORED IN HADOOP AS CSV FILE
+
+
+UseCase
+=======
+
+1. Find total number of emp > 2500$
+
+2. List all the emp > 2500$
+
+	==> No need to write Reducer
+
+If we dont write Reducer class
+
+	==> IndentityReducer runs by default 
+
+
+MAPPERS
+
+MAPPERS		REDUCERS
+
+MAPPERS		COMBINERS	REDUCERS
+
+MAPPERS 	PARTITIONERS	REDUCERS
+
+MAPPERS		COMBINERS	PARTITIONERS	REDUCER
+
+WHY MAPREDUCE
+-------------
+	==> COMPLEX BUSINESS LOGIC
+	==> COMPLETELY UNSTRUCTURED DATA 
+
+
+
+cust	==> custid,fn,ln,age,prof,sal			==> custMapper
+
+txns	==> txnId,date,amt,custId,cat,prd,.....		==> txnsMapper
+
+
+What is the total number of transactions each cusomer has done along with total sales
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

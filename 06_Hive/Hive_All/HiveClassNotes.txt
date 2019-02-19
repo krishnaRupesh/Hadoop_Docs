@@ -1,0 +1,167 @@
+Hive
+----
+
+INTERNAL/MANAGED TABLE
+======================
+
+1. How to create table and load data from LFS and from HDFS
+
+MetaData 	--> stored in Derby
+Actual data 	--> HDFS
+
+
+Notes :
+	Hive Create database with tables in Warehouse Directory  --> by default /user/hive/warehouse
+
+	if you load data from lfs it copies to warehouse Directory
+
+	if you load data from hdfs it moves to warehouse directory
+
+drop table
+	: it deletes metadata from derby
+	: it deletes actual data from HDFS ( WAREHOUSE DIRECTORY)
+	
+
+EXTERNAL TABLE  --> HBase Table
+==============
+
+Data processed by other stacks --> 
+
+drop table
+	: it deletes metadata from derby
+
+
+
+Partitioning
+
+1. Manual Partitioning
+
+2. Dynamic Partitioning
+
+
+
+cust data --> 10000 records
+
+
+txn data --> 1 million records --> partitioning on user --> not suggested
+
+
+
+10% of users  --> sample of records	--> buckets
+
+
+Lets assume 10000 records of cust id
+
+
+10 buckets of userid 
+
+
+Select  2 out of 10 buckets
+
+
+
+
+
+1. Create table and load data from LFS
+
+/user/hive/warehouse
+
+INTERNAL TABLE
+
+
+MetaData 	--> stored in Derby
+Actual data 	--> HDFS
+
+
+Notes :
+	Hive Create database with tables in Warehouse Directory  --> by default /user/hive/warehouse
+
+	if you load data from lfs it copies to warehouse Directory
+	if you load data from HDFS it MOVES to warehouse Directory
+
+
+
+EXTERNAL TABLE
+
+	1. We need to specify locaion of the data while creating table
+
+
+
+
+
+
+DataWarehousing Package built on Hadoop/Not a database
+
+1. It manages metadata in Derby
+2. It manages actual data in HDFS
+
+
+
+
+
+
+
+state 
+column
+======
+StateA
+StateB
+StateC
+
+Manual Partitioning
+
+Table data will not contain details of partitioning  --> we need to manually input
+
+
+Dynamic Partitioning
+
+Table data has details of partitioning
+
+
+
+POS
+
+userID  --> 10000 --> Partitioning not recommended
+
+
+20 parts
+
+1 outof these 20 parts  --> 500 randomised sample records
+
+4 outof these 20 parts  --> 2000 randomised sample userID records
+
+
+10 parts
+
+2 outof these 10 parts  --> 2000 randomised sample userID records
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,46 @@
+----------------------------------------------------------------
+2014-06-29 14:42:57.615 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.4.2.0 - (689064): instance a816c00e-0146-e814-3593-00000090ced8
+on database directory /home/cloudera/tejashive/metastore/metastore_db  
+
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+2014-06-29 15:04:29.773 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.4.2.0 - (689064): instance c1c9803d-0146-e814-3593-00000090ced8
+on database directory /home/cloudera/HiveNEW/TempStatsStore  
+
+Database Class Loader started - derby.database.classpath=''
+
+2014-06-29 15:04:30.031 GMT:
+Shutting down instance c1c9803d-0146-e814-3593-00000090ced8
+----------------------------------------------------------------
+----------------------------------------------------------------
+2014-06-29 15:05:31.486 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.4.2.0 - (689064): instance 22b5c04b-0146-e814-3593-00000090ced8
+on database directory /home/cloudera/HiveNEW/TempStatsStore  
+
+Database Class Loader started - derby.database.classpath=''
+
+2014-06-29 15:05:33.116 GMT:
+Shutting down instance 22b5c04b-0146-e814-3593-00000090ced8
+----------------------------------------------------------------
+----------------------------------------------------------------
+2014-06-29 15:50:03.582 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.4.2.0 - (689064): instance 0e4a4072-0146-e814-3593-00000090ced8
+on database directory /home/cloudera/HiveNEW/TempStatsStore  
+
+Database Class Loader started - derby.database.classpath=''
+
+2014-06-29 15:50:03.613 GMT:
+Shutting down instance 0e4a4072-0146-e814-3593-00000090ced8
+----------------------------------------------------------------
+----------------------------------------------------------------
+2014-06-29 15:50:11.010 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.4.2.0 - (689064): instance 6ebdc076-0146-e814-3593-00000090ced8
+on database directory /home/cloudera/HiveNEW/TempStatsStore  
+
+Database Class Loader started - derby.database.classpath=''
+
+2014-06-29 15:50:11.080 GMT:
+Shutting down instance 6ebdc076-0146-e814-3593-00000090ced8
+----------------------------------------------------------------

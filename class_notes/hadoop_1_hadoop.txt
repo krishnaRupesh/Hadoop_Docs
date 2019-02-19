@@ -1,0 +1,63 @@
+Hadoop Design Principles 
+■ Facilitate the storage and processing of large and/or rapidly growing data sets 
+❑ Structured and Unstructured data ❑ Simple Programming Models 
+■ Scale-Out rather than Scale-Up 
+■ Bring Processing to Data rather than Data to Processing 
+■ High scalability and Availability 
+■ Uses Commodity Hardware 
+■ Fault-Tolerance 
+
+
+Demons on HAdoop
+name node
+data node
+secondary name node
+stand by name node
+
+resource mamanger
+node manager
+
+block size 
+
+max block size is 128 MB
+if u have file size of 10MB then block size is 10 MB.
+Input splits are hte logical blocks.(number of mappers is equal to input splits. count of mappers can be managed).
+
+
+Rack awairness ( atlease one replica is stored in different rack)
+hdfs write mechanish ( copying of different blocks run in parallel and replications were done in series )
+hdfs read mechanism ( read data from one of the block where having less number of process running ).
+
+
+Federation (having multiple name nodes)
+High availablility (standby name node . run by zookeeper)
+
+
+Hadoop 2.x Configuration Files 
+
+ 
+hadoop-env.sh Environment Variables that are used in the scripts to run Hadoop. (java properties)
+core-site.xml Configuration settings for Hadoop Core such as I/O settings that are common to HDFS and MapReduce. (file systesm and other applications and their ports)
+hdfs-site.xml Configuration settings for HDFS daemons, the namenode, the Secondary NameNode and the DataNodes. (replication times and block size) 
+mapred-site.xml Configuration settings for MapReduce Applications. (which to use mapreduce or yarn )
+yarn-site.xml Configuration settings for ResourceManager and NodeManager.(yarn configuration)
+masters A list of machines (one per line) that each run a Secondary NameNode.  (secondary name node data)
+slaves A list of machines (one per line) that each run a Datanode and a NodeManager. (slaves list)
+
+
+
+Input splits are the logical representation of data stored in blocks.
+Record reader reads the data from input splits. ( it provides the key and value to mapper)
+input formet specifies input split and record reader. if text input formet it is file input split , record reader is line record reader.
+
+no if mappers is number of input splits. to control the number of mappers we have to control the input splits. By changing the  block size we can control the input splits.
+
+
+Small size files problem.
+combine input formet (one input split point to multiple blocks)redure number of mappers.
+
+Sequence file (binary key value)]
+
+custome object can be send to mapper by overriding record reader. override nextkeyvalue method.p8j
+
+

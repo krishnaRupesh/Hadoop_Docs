@@ -1,0 +1,68 @@
+Partitioning
+============================
+create table employee(empid Int, name String , catagory String ,Salary Double) row format delimited fields terminated by ',' stored as textfile;
+
+describe employee;
+
+describe formatted employee;
+
+load data inpath '/user/cloudera/Desktop/empdata1.txt'   into table employee;
+
+create table emppart2(empid Int ,name String , Salary Double) Partitioned By (catagory String) row format delimited fields terminated by ',' stored as textfile;
+
+describe formatted emppart;
+
+SET hive.exec.dynamic.partition=true;
+SET hive.exec.dynamic.partition.mode=nonstrict;
+
+from employee insert into emppart partition (catagory) select empid,name,Salary,catagory;
+//have to keep the partition column at the last. if not it wont work proprerly
+
+
+drop emppart;
+
+static partitioning
+============================
+load data inpath '/user/cloudera/Desktop/hr.txt' into table emppart partition(catagory='hr');
+
+
+Bucketing 
+==========================================
+create table empbuck(empid Int ,name String , Salary Double) Partitioned By (catagory String) clustered by (empid) into 4 buckets row format delimited fields terminated by ',' stored as textfile;
+
+describe formatted empbuck;
+
+SET hive.enforce.bucketing = true;
+
+from employee insert into empbuck partition (catagory) select empid,name,Salary,catagory distribute by empid;
+
+Bucketing without partitioning
+==========================================
+create table empbuck1(empid Int ,name String , Salary Double, catagory String ) clustered by (empid) into 4 buckets row format delimited fields terminated by ',' stored as textfile;
+
+from employee insert into empbuck1 select empid,name,Salary,catagory distribute by empid;
+
+
+Bucketing theory
+============================
+buckting works on hashing mechanism. Hashing of the column we are used for bucketing.
+
+Advantages,
+
+Bicketing helps in joining columns in very effective way. 
+both colums should be bucked in same column . number of buckets should be same both the tables for more effectiveness.
+
+sampling in bucekting 
+
+SELECT * FROM empbuck1 TABLESAMPLE (BUCKET 1 OUT OF 4 on empid); 
+
+SELECT * FROM empbuck1 TABLESAMPLE (20 PERCENT);
+
+Disadvantages,
+
+When we have a lot of partitions, before bucketing, so adding bucketing will make us too much files. Aside of HDFS pessure a lot of files will lead to a lot of map tasks, which in turn will add overhead and slow query starts
+
+When data is small and bucketing will not add value. in other words - when bucketing will lead to files much smaller than one block.
+
+When we expect high skew on data so we will pay price of bucketing but will not gain from it too much.
+

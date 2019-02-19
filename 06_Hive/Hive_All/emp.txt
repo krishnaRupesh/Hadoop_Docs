@@ -1,0 +1,3 @@
+swetha,250000,IT
+anamika,200000,FIN
+tarun,300000,HR

@@ -1,0 +1,4 @@
+tejas,150000,IT
+mohammad,200000,IT
+Ram,200000,HR
+Naresh,200000,FIN

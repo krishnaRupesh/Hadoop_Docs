@@ -1,0 +1,91 @@
+Employee
+		personal					address
+        ============================================    ========================================
+emp1	Tejas	40	shannu123	tejas@edu.in	5th cross	Bangalore	Karnataka
+
+put 'employee','emp1','address:pin','560020'
+
+emp1:{
+	address{
+		city{
+			 	timestamp=1514860728572, value=Bengaluru                                               			 	timestamp=1484033562400, value=Blore                                                   			 	timestamp=1484033470210, value=Bangalore  
+		}
+		pin{
+				timestamp=1424134123104, value=560020
+		}
+		state{
+				timestamp=1424843951104, value=Karnataka
+		}
+		street{
+				timestamp=1424843951104, value=5th cross
+		}
+	}	
+	personal{
+		age{
+				timestamp=1424843989066, value=40
+		}
+		email{
+				timestamp=1424844220011, value=tejas@edu.in
+		}
+		name{
+				timestamp=1424843951104, value=Tejas  
+		}
+		password{
+				timestamp=1424844220022, value=shannu123
+				timestamp=1424844220000, value=xyz123
+				timestamp=1424844120986, value=abc123
+		}
+	}
+}
+
+column 		==> hashmap1 ( n number of k/v pair ) ==> ts:data
+
+col_fam 	==> hashmap2 ( n number of k/v pair ) ==> column:hashmap1
+
+row_key 	==> hashmap3 ( n number of k/v pair ) ==> col_fam:hashmap2
+
+
+emp2:{
+
+	personal{
+		name{
+		
+
+		}
+		age{
+
+		}
+		password{
+
+		}
+	}
+	
+	address{
+		street{
+
+		}
+		city{
+
+		}
+		state{
+
+		}
+		
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

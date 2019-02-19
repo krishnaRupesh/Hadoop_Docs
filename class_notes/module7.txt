@@ -1,0 +1,113 @@
+
+
+MR Framework
+============
+	==> MR Programming
+	==> Pig
+	==> Hive
+
+Is optimised to process entire dataset quicker rather than processing a particular record from that dataset.
+
+Not good for
+
+	==> low latency applications
+	==> row level updates/deletes/inserts
+
+
+HBase	==> CRUD Operations
+	==> Fast Individual record seek/filter subset of data and process
+	
+	==> Distributed Database
+	==> HBase runs on top of Hadoop (HBase managing the data in HDFS)
+
+
+HBase
+=====
+
+1. Column Families : Group of related columns (thousands of columns can be mapped to a Column Family)
+
+2. Table level schema defines only column families (Not specify details of the columns)
+
+3. Columns can be added on the fly for a row (Variable Schema)
+
+4. RowKey is unique and identifies each row. 
+
+5. In a row columns will be spanned across multiple families
+
+6. When you insert column, data will be managed along with timestamp
+
+7. Hbase manages Single version of the data and can be configurable to manage multiple versions
+
+
+
+1. list
+
+2. create table_name,CF1_name,CF2_name...
+
+3. put table_name,rowId,CF:col,value		--> when you insert data then only column exists
+
+
+Insert
+======
+put table_name,rowId,CF:col,value
+
+example :  put 'employee','emp1','personal:ename','Tejas'
+
+
+Getting a particular record by Key
+==================================
+get table_name, rowId
+
+
+Update
+======
+put table_name,rowId,CF:col,value
+
+Delete-Column
+=============
+delete table_name,rowId,CF:Col
+
+Delete-Row
+==========
+deleteall table_name rowId
+
+
+To add another family
+=====================
+disable 'employee'
+
+alter 'employee',NAME=>'address',VERSIONS=>3
+
+enable 'employee'
+
+
+
+get or scan always shows latest version of data
+
+
+
+REGION		==> RANGES OF ROWS STORED TOGETHER
+
+Assuming each one million record takes 256mb==> 10 MILLION RECORDS IS 10 REGIONS
+
+
+HFiles/Store 	==> RowKey Ordered data ==> Immutable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

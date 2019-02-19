@@ -1,0 +1,140 @@
+
+
+
+
+when you submit job
+
+hadoop jar jar_fn prog_name input_path output_path
+
+
+InputSplits	==> Logical files	==> Rec by Rec of the data
+
+Number of blocks	==> Number of InputSplits ==> Number of Mappers
+
+
+Mappers will store the output in the machine where it runs (temp folder)
+
+
+MR Programming ==> Joins
+=========================
+	==> MapSide Join
+	==> Reduce Side Join
+
+
+cust	==> custid,fn,ln,age,prof	==> DISTRIBUTED CACHE
+
+txns	==> txnID,date,.....		==> txnsMapper
+
+replicated, skewed, merged
+
+
+
+CUSTOM INPUTFORMAT CLASS
+=========================
+
+WRAPPER CLASSES
+----------------
+
+MAPPERS OUTPUT WILL BE SERIALISED AND DESERIALISED		==> Interface called Writable
+MAPPERS OUTPUT KEYS WILL BE SORTED AND COMPARED 		==> Interface called Comparable 
+
+We use both functionalities which is there in WritableComparable Interface
+
+
+1. CUSTOM KEY			==> WritableComparable
+2. CUSTOM VALUES		==> WritableComparable
+
+3. CUSTOM INPUTFORMAT CLASS
+4. CUSTOM RECORDREADER 
+
++
+
+MAPPER + DRIVER
+
+
+
+
+
+
+
+Steps MR Testing (MapperTest)
+================
+
+1. Instantiate MapDriver class parameterised same as the Mapper under test
+
+2. Attach map class to the MapDriver
+
+3. withInput we can specify what should be the input K/V
+
+4. withOutput we specify what should be the expected output K/V
+
+Note : We simply pass the input K/V pair and just specify expected output K/V
+
+
+5. runTest
+
+	==> It starts execution by passing the value specified in step 3
+	==> It matches the k/v specified in the step 4 with the output of the mappers
+
+
+
+
+
+
+
+
+
+
+10gb data ==> 80 blocks ==> 80 mappers
+
+
+10gb of small files ==> each around 100kb   ==> Total how many files 
+
+==> 10 * 1000 * 10 	==> 100,000 files	==> 100,000 mappers 
+
+==> convert this into binary sequence file format and process
+
+
+
+
+
+
+
+
+
+
+
+10GB DATA	==> 80 BLOCKS	==> 80 MAPPERS SHOULD RUN
+
+
+SEQUENCE FILE FORMAT
+
+
+10 GB OF SMALL FILES   ==> EACH FILE 100KB 	==> 10 * 1000 * 10  ==> 100,000 FILES
+
+SOLUTION==> CONVERT ALL THESE INTO BINARY SEQUENCEFILE FORMAT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

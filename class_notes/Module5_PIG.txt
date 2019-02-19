@@ -1,0 +1,199 @@
+
+hadoop fs  ==> file system operations
+
+hadoop jar ==> for program 
+
+
+Step 1==> where programs has to run
+--------
+
+core-site.xml 	==> Namenode
+yarn-site.xml	==> resourceManager
+
+slaves		==> DN+NM  (Line by line IPAddress of the machines )
+
+UserMachine     ==> we dont specify ipaddress even in slave file
+
+
+
+MR Programming
+
+	==> hadoop jar jar_fn prog_name input_path output_path
+
+
+visits and pages	==> Find Users who tend to visit more good pages
+
+1. Join based on the URL
+
+2. group based on the User
+
+3. Find AVG of PageRank
+
+4. Filter PageRank > 0.5
+
+
+
+
+Pig Programming
+===============
+
+1. Write Script file (abc.pig)
+
+2. run Scirpt file
+
+
+1.Writing the script 
+====================
+
+1. load			==> Specify which data to process and what is its schema
+
+2. transformations	==> Based on the business logic
+			==> join,group,avg(pageRank),filter,foreach-generate,order,union,split...
+			==> LAZY OPERATIONS
+
+3. dump/store		==> Start the execution
+			==> DUMP --> PUT THE RESULT ON TO THE CONSOLE
+			==> STORE--> SAVES THE RESULT ON HDFS/LFS
+
+2. run Script file
+==================
+
+pig Script_FileName   (the data is processed in HDFS and result will be kept in HDFS)
+
+pig -x local Script_Filename  ( Runs MR job locally Not in Hadoop)  (Good for learning)
+
+For learning we can use grunt shell  ==> This helps us to run individual queries (one by one and test)
+
+
+
+
+
+On Hadoop
+---------
+	==> pig abc.pig	==> (In load and store we specify HDFS path)
+
+	==> we specify inputpath and output path in Script and based on the transformations
+            pig creates MR jobs and runs in Hadoop 
+
+Locally (Single JVM -->testing/learning)
+--------------------------------------
+
+	==> pig -x local abc.pig	==> (In load and store we specify LFS path)
+
+	==> we specify inputpath and output path in Script and based on the transformations
+            pig creates MR jobs and runs Locally
+
+GOTO THE SHELL (GRUNT)
+=====================
+pig			HDFS
+pig -x local		LFS
+
+
+load, c1,c2,c3,dump
+
+Data Processing
+===============
+
+1. Data collection
+2. Data Preparation	==> ETL (Data Factory)
+3. Data Presentation
+
+
+Pig default datatype is bytearray
+
+Pig default delimiter is tab  (if the data is tsv we dont need to use PigStorage('\t'))
+
+
+
+In Pig while loading the data it doesnot verify the data  
+
+	==> Schema on Read  --> when you say dump or store  it verifies the data 
+
+	Data can be null
+	Data can be duplicate
+	Data can be different type (Data doesnot confirm to the given schema)
+
+
+
+
+DAta with 100s of colums ==> If we need just 5th column to 10th column ( we need only 6 columns to process)
+
+input.txt  ==> f1,f2,f3,f4,f5......f200	==> comma separated value
+
+
+1. load data with PigStorage and dont define schema
+
+2. foreach generate $4 to $9
+
+
+
+
+Hadoop schema on read  ==> while load we define complete schema with field delimiter
+
+
+MR Programming
+===============
+
+cust  ==> custid,fn,ln,age,prof..  	==> Distributed Cache
+
+txns  ==> txnid,date,amt,cat,prd...	==> txnsMapper
+
+MapSide Join
+ReduceSide Join
+
+
+
+MR ==> Distributed Cache	==> MAPSIDE JOIN (Join logic implemented in the MAP function) 
+
+If we have one small data to be joined with one big data 
+
+-------------------------------------------------------------------
+
+
+If we have multiple Reducers ==> Particular KEY goes to any one of the reducer
+
+-------------------------------------------------------------------
+
+REPLICATED 	
+==========
+
+	==> DISTRIBURED CACHE
+	==> MAPSIDE JOIN 
+
+SKEWED
+=====
+
+	==> IF A PARTICULAR KEY HAS TOO MUCH OF DATA
+
+MERGED
+=====
+
+	==> JOINING KEYS OF BOTH DATA SET IS SORTED ALREADY
+
+
+PIG UDF
+=======
+
+1. WRITE JAVA PROGRAM AND CREATE JAR FILE
+
+2. ADD JAR FILE TO THE PIG CONTEXT
+
+3. CALL THE JAVA PROGRAM ON THE COLUMN WHICH HAS TO BE EVALUATED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
