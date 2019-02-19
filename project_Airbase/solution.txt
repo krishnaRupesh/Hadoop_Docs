@@ -1,0 +1,25 @@
+create database air;
+use air;
+
+
+create table airports (airports_id string, name string,city string, country string,IATA_FAA string,ICAD string,latitude string,longitude string,altitude string,Timezone string,DST string,T2 string) row format delimited fields terminated  by ",";
+
+load data local inpath '/home/cloudera/Desktop/AIR_DATASET/AIRPORT.csv' overwrite into  table airports;
+
+create table finalairlines(airline string,name string, alias string,IATA string,ICAD string,callsign string,country string,active string)  row format delimited fields terminated  by ",";
+
+load data local inpath '/home/cloudera/Desktop/AIR_DATASET/AirLines.csv' overwrite into  table finalairlines;
+
+create table routes(airlines string,airline_id string,source_airport string,source_airport_id String ,destination_airport string ,destination_airport_id string,code_share string,stops string,equipment string) row format delimited fields terminated by ",";
+
+load data local inpath '/home/cloudera/Desktop/AIR_DATASET/Routes.csv' overwrite into  table routes;
+
+select * from airports where country like '%India%';
+
+select * from routes where stops = '0';
+
+select * from routes where code_share like '%Y%';
+
+select count(airports_id) as count, country from airports group by country order by count desc limit 1;
+
+select * from finalairlines where country = 'United States' and active = 'Y';

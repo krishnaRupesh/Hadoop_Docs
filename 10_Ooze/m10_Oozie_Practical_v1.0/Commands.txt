@@ -1,0 +1,18 @@
+create application
+==================
+
+1. Create a directory for oozie job ( WordCountTest )
+
+2. Write application and create the jar
+   Move this jar to lib folder in WordCountTest directory.
+
+3. job.properties  and workflow.xml inside WordCountTest directory.
+
+4. Move this directory to hdfs.
+
+
+5. Running the application
+=========================
+Goto Oozie directory on the edge node
+
+oozie job --oozie http://ip-20-0-21-196.ec2.internal:11000/oozie -config job.properties -run

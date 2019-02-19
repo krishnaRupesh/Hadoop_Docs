@@ -1,0 +1,286 @@
+
+
+
+
+CLUSTER ==> N number of servers  (hadoop runs in cluster)
+
+
+For Read and Write operation
+
+hadoop fs
+
+For running the program/application
+
+hadoop jar
+
+
+
+
+FEDERATION
+===========
+
+HADOOP1			==> SINGLE NAMENODE ==> SINGLE NAMESPACE
+=======
+SINGLE NAMENODE 	==> ALL THE FILES AND DIR STRUCTURE STORED IN SINGLE RAM OF THAT NAMENODE
+			==> SINGLE NAMESPACE 
+			==> NOT GOOD FOR TOO BIG CLUSTER
+
+
+HADOOP2			==> FEDERATION
+=======
+HR/...			==> NAMENODE1 TO MANAGE METADATA OF HR
+FIN/..			==> NAMENODE2 TO MANAGE METADATA OF FIN
+USERS/..		==> NAMENODE3 TO MANAGE METADATA OF USERS
+
+
+HIGH AVAILABILITY
+=================
+
+HADOOP1			==> SINGLE NAMENODE ==> SPOF (MANUAL INTERVENSTION FOR CLUSTER TO UP)
+=======
+			==> SECONDARY_NAMENODE  
+				==> JUST TAKES HOURLY METADATA BACKUP FROM NAMENONDE
+				==> NOT HOT STANDBY FOR NAMENODE 
+
+
+HADOOP2			==> HIGH AVAILABILITY
+
+			==> ACTIVE NAMENODE AND STANDBY_NAMENODE 
+			==> IF THE ACTIVE NAMENODE FAILS THIS STANDBY BECOMES ACTIVE (HOT STANDBY AND NO SPOF) 
+			==> WE HAVE ZOOKEEPER COORDINATION API USED IN HADOOP2 
+                            WHICH TAKES CARE OF MANAGING MASTERS
+
+
+
+
+
+
+
+
+HDFS   ==> Namenode,Datanode  + Standby_Namenode   (Secondary Namenode optional)
+
+
+HADOOP CLUSTER CONFIGURATION
+
+	==> DOWNLOAD JAR FILES
+	==> UNTAR
+	==> CONFIGURE WHERE HADOOP DEAMONS HAS TO RUN 
+
+		==> IF YOU CONFIGURE ALL PROGRAMS TO RUN IN SAME MACHINE (PSEUDO DIST MODE)
+		==> IF YOU CONFIGURE ALL PROGRAMS TO RUN IN MULT MACHINES (fully DIST MODE)
+
+HDFS						YARN
+====						====
+NAMENODE		MASTER			RESOURCEMANAGER
+DATANODE		SLAVE			NODEMANAGER
+
+
+
+
+
+
+
+
+
+
+
+
+Hadoop CLUSTER Configuration  ==> Hadoop ADMIN
+==============================================
+
+
+
+1. We configure where ( in which machines/nodes ) hadoop deamons has to run 
+
+Namenode		--> in which machine it has to run
+ResourceManager		--> in which machine it has to run
++
+Datanode
+NodeManager		--> list of all slave machines
+
+2. We configure custom parameters for our cluster 
+
+		example : setting replication factor
+			  setting block size
+			  ......
+
+3. We set java path
+		Because hadoop itself is written in java 
+
+
+
+ALL THE ABOVE STEPS WE NEED TO DO IN 
+
+/opt/cloudera/parcels/CDH/lib/hadoop/etc/hadoop
+
+
+
+
+
+hadoop fs -put abc.txt /Data
+
+
+
+
+
+
+50 machines
+==========
+1--> Namenode
+1--> RM
++
+48
+
+
+
+Pseudo DM ( Single Machine )
+===========================
+install linux  +  install jdk  + download all hadoop jars  AND untar
+
+goto : /usr/lib/hadoop-2.x.0/etc/hadoop
+
+Pseudo DM ( Single Machine ) Hadoop Configuration
+====================
+1. We configure where ( in which machines/nodes ) hadoop deamons has to run 
+
+For Pseduto DM   : Specify in config files that all deamons has to run in local system ( Single machine )
+
+core-site.xml  --> NN	--> 	localhost
+yarn-site.xml  --> RM	-->	localhost
+
+slaves   --> DN&NM	--> 	localhost
+
+2. We configure custom parameters for our cluster 
+=======================>
+hdfs-site.xml  --> repl factor to one / configure block size 
+yarn-site.xml  --> programming/process specific settings
+
+3. We set java path
+=======================>
+hadoop-env.sh  	--> java path  ( Environment Variable )
+		--> heapsize for the deamons (memory allocated for the JVM)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Create Hadoop cluster with 50 machines  (Including User machines  say 5 Numbers )
+-------------------------------------
+
+1. 5 User Machines
+2. 5 Masters		==> Active Namenode, StandbyNamenode, RM + Failover, SNN (Optional)
+3. 40 Slaves
+
+
+
+1. install linux-server , java , hadoop in all machines
+2. Choose any one server/system and change conf file as we discussed above
+
+goto : /opt/cloudera/parcels/CDH/lib/hadoop/etc/hadoop
+goto : /usr/lib/hadoop-2.x.0/etc/hadoop
+
+
+3. copy this folder to all servers
+
+Step 2 for example
+==================
+1. We configure where ( in which machines/nodes ) hadoop deamons has to run 
+
+For Pseduto DM   : Specify in config files that all deamons has to run in local system ( Single machine )
+
+core-site.xml  	--> NN		--> 	IPADDRESS/HOSTNAME
+yarn-site.xml  	--> RM		-->	IPADDRESS/HOSTNAME
+
+slaves   	--> DN&NM	--> 	IPADDRESS/HOSTNAME (LINE BY LINE )
+
+2. We configure custom parameters for our cluster 
+=======================>
+hdfs-site.xml  --> repl factor to one / configure block size 
+yarn-site.xml  --> programming/process specific settings
+
+3. We set java path
+=======================>
+hadoop-env.sh  --> java path  ( Environment Variable )
+
+
+
+
+
+
+
+
+==============================================================================================
+
+MR PROGRAMMING  ==> PARALLEL DISTRIBUTED FAULT TOLERANT PROCESSING FRAMEWORK
+		==> BATCH PROCESSING 
+
+
+
+For any usecase in MR Programming
+---------------------------------
+1. WE WRITE MAP PROGRAM
+
+2. WE WRITE REDUCE PROGRAM
+
+3. WE WRITE DRIVER PROGRAM ==> CONFIGURATION OF THE JOB/APPLICATION
+
++
+
+CREATE JAR FILE AND EXECUTE THE PROGRAM
+
+
+hadoop fs		==> File System client Library	==> create dir,copy files,delete files 
+
+hadoop jar		==> Client Library to execute programs/applications/jobs
+
+
+
+EXECUTE THE PROGRAM
+-------------------
+
+hadoop jar jar_fn prog_name input_path output_path (HDFS)
+
+
+
+1. cd  /opt/cloudera/parcels/CDH/jars
+
+2. ls
+
+3. hadoop jar hadoop-examples.jar
+
+4. hadoop jar hadoop-examples.jar wordcount  amr/hadoop.txt  Mar28/MyFirstOUTPUT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

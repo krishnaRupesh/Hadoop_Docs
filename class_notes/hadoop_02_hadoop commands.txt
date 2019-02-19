@@ -1,0 +1,4 @@
+Hadoop Commands,
+
+hadoop fs -put /home/cloudera/Desktop/data3.txt /user/cloudera/
+hadoop fs -copyFromLocal /home/cloudera/Desktop/data2.txt /user/cloudera

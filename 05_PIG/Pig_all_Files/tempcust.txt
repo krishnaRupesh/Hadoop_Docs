@@ -1,0 +1,14 @@
+4000001,Kristina,Chung,55,Pilot
+4000002,Paige,Chen,74,Teacher
+4000003,Sherri,Melton,34,Pilot
+4000004,Gretchen,Hill,66,Pilot
+4000005,Karen,Puckett,74,Teacher
+4000006,Patrick,Song,42,Computer hardware engineer
+4000007,Elsie,Hamilton,43,Pilot
+4000008,Hazel,Bender,63,Teacher
+4000009,Malcolm,Wagner,39,Teacher
+4000010,Dolores,McLaughlin,60,Pilot
+4000011,Francis,McNamara,47,Teacher
+4000012,Sandy,Raynor,26,Computer hardware engineer
+4000013,Marion,Moon,41,Pilot
+4000014,Beth,Woodard,65,Pilot

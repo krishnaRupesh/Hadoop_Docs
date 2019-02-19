@@ -1,0 +1,3 @@
+srinivas,250000,IT
+akilesh,250000,IT
+aswini,250000,IT

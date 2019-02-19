@@ -1,0 +1,329 @@
+
+12*4 ==> 48 TB
+
+FILE 16TB 
+
+16*3 ==> 48TB
+
+Hadoop (Default Components)
+
+	==> HDFS	==> Hadoop Distributed File System	(Storage and managing of data)
+	==> YARN	==> Yet Another Resource Negotiator     (Takes care of Processing the data)
+	
+			==> Default Processing Framework (MapReduce)
+			==> Apache Spark
+			==> Storm
+			==> Giraph
+			==> Mahout/R
+			==> Impala
+			==> .......
+			
+
+PRE-REQUISITES
+===============
+LINUX COMMANDS	==> HDFS
+JAVA		==> MR PROGRAMMING
+SQL		==> HIVE
+
+
+
+Data Processing on Hadoop
+=========================
+
+1. Data Collection			--> FLUME/SQOOP/copy commands
+
+2. Data Preparation(ETL)/Analysis	--> Pig/Hive/HBase
+
+3. Data Presentation 			--> d3JS/JFree/Kibana/Talend
+
+
+XML,CSV,TSV
+===========
+BOOKS.DAT
+
+BOOKID,AUTHOR,YOP,PRICE,TITLE,DESC....
+
+BOOKID	AUTHOR	YOP	PRICE	TITLE	DESC....
+
+<BOOKS>
+
+<BOOK>
+<BOOKID>
+LSADJK
+</BOOKID>
+<AUTHOR>
+ALSJD
+</AUTHOR>
+....
+</BOOK>
+
+<BOOK>
+<BOOKID>
+LSADJK
+</BOOKID>
+<AUTHOR>
+ALSJD
+</AUTHOR>
+....
+</BOOK>
+
+<BOOKS>
+
+
+
+
+
+Hadoop		==> JAVA 
+======
+
+HDFS	--> HADOOP DISTRIBUTED FILE SYSTEM 	--> STORAGE OF DATA 
+
+YARN	--> YET ANOTHER RESOURCE NEGOTIATOR	--> PROCESSING THE DATA  --> MAPREDUCE/APACHE_SPARK
+
+
+HADOOP CLUSTER
+==============
+HADOOP PROGRAMS RUNNING IN MULTILE SERVERS/NODES/MACHINES
+
+
+1. WHAT DECIDES NUMBER OF MACHINES IN A HADOOP CLUSTER??
+
+==> SIZE OF THE DATA 
+
+
+500TB OF DATA	+ 300TB		==> EACH MACHINE 10TB		==> 50 SERVERS + 30 SERVERS
+
+
+
+HADOOP FEATURES 
+================
+SCALABLE  		==> NEW NODES CAN BE ADDED AS NEEDED 
+ROBUST			==> FAULT TOLERANCE MECHANISM
+COST EFEECTIVE 		==> COMMODITY COMPUTERS 
+FLEXIBLE		==> ANY KIND OF DATA/ ANY NUMBER OF SOURCES 
+
+
+HADOOP IS STORAGE PLUS PROCESSING FRAMEWORK
+
+HADOOP IS STORAGE(HUGE VOLUME OF DATA DISTRIBUTED ACROSS MULTIPLE SERVERS) 
+PLUS PROCESSING (DISTRIBUTED DATA BEING PROCESSED IN PARALLEL) FRAMEWORK (SET OF LIBRARIES)
+
+
+
+HADOOP CLUSTER CONFIGURATION 
+
+	==> CONFIGURING HADOOP PROGRAMS TO RUN IN MULTIPLE MACHINES/SERVERS
+	==> CONFIGURE WHERE (WHICH MACHINE) NAMENODE,DATANODE,RESOURCEMANAGE AND NODEMANAGER TO RUN
+
+HDFS					YARN
+====					====
+
+NAMENODE	MASTER			RESOUREMANAGER
+
+DATANODE	SLAVE			NODEMANAGER
+
+
+
+130MB ==> EMP.DAT
+
+B1	==> 128MB
+B2	==>   2MB
+
+
+1. Data will be stored and processed only in slave machines.
+
+2. File will be split into blocks 128mb max size ( which is configurable )
+
+3. Each block replicated to 3 times ( configurable  --> replication factor )
+
+4. Each Repl for a particular block is written in a separate slave machine --> for fault tolerance
+
+5. when you process/read data, any one of the repl will be considered for a block.
+
+
+
+
+MACHINE LEARNING ALGORITHMS
+============================
+
+	1. RECOMMENDATION   
+	2. CLASSIFICATION	
+	3. CLUSTERING
+
+
+
+Hadoop is optimised to process entire DATASET quicker (Batch Processing --> High throuput)
+rather than processing particular record from that DATASET( Low Latency)
+
+WRITE ONCE AND READ MANY TIMES
+
+==> System Logs
+==> Running ETL
+==> Computing web Indexes
+==> Sentiment Analysis
+......
+
+
+
+
+==> When you write data to hadoop, it splits and distributes the data along with replication
+
+==> Namenode manages METADATA (Information/Details about the DATA) and Datanode manages ACTUAL DATA
+
+
+
+
+hadoop fs  or hdfs dfs  ==> File System client libraries
+
+
+hadoop fs -ls
+
+hadoop fs -cat fn
+
+
+hadoop fs -mkdir DirName
+
+hadoop fs -put 		 source dest
+
+hadoop fs -copyFromLocal source dest
+
+
+when you submit read/write request  --> Request will be taken by Hadoop libarary referred as Client
+
+Client acts as inteface between user and hadoop.
+
+1. Read / Write request comes from user
+========================================
+WRITE
+
+a. user wants to write data to hadoop  -->   web.log  ==>  257mb 
+
+One of the data loading technique to hadoop   ==> copy command ==> put or copyFromLocal
+
+In command prompt --> hadoop fs -put web.log /log/Apr29
+
+b. Client takes the request and splits the data into blocks  ( n blocks )
+
+c. Client takes the datanode details where it has to write from Namenode for all the blocks with repl
+
+d. Client writes blocks in parallel  --> all the blocks are written at a time --> not one by one
+
+257mb  ==> web.log
+
+b1 --> 128mb
+b2 --> 128mb
+b3 --> 1mb
+
+
+Blocks are written in parallel but replication of a block happens serially
+
+
+
+
+
+
+
+
+
+
+
+
+
+Client does the replication and following is the steps:
+
+1. After taking the Datanode list from the Namenode 
+
+	a. First Client Lib prepares Queue of the datanodes
+
+	b. Writes data packet by packet to the first datanode in the Queue The packets 
+           will be written to the rest of the datanodes one by one (Serial)
+
+	c. Acknoledgement will be sent to Client. Once all the packets written, 
+           Client notifies to Namenode to write the metadata.
+
+
+
+Based on the HEARTBEAT namenode will know complete cluster resource availability
+
+
+
+
+
+Read happens in serial and processing happens in parallel
+
+EMP.DAT
+
+CAT EMP.DAT					==> HDFS
+
+
+
+SELECT * FROM EMPLOYEE WHERE STATE="UP";	==> YARN
+
+READ EMPID = 1000 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		

@@ -1,0 +1,29 @@
+Recommendation System/ Sentiment Analysis
+
+Java
+Python
+Scala  ==> SparkML
+
+
+1. Develope a small web app
+
+	==> asks you to recommend some movies (minimum 5 movies)
+
+	==> It recommends movies to you
+
+
+==> Put in LMS  (Header ==> Tejas_Python_Project  ==> Module1)
+
+
+InputFormat
+
+
+DOES 2 STEPS
+
+	==> InputSplits		
+		--> TAKES CARE OF RECORD BREAK BETWEEN THE BLOCKS
+		--> DECIDES NUMBER OF MAPPERS
+
+	==> RecordReader
+
+ 

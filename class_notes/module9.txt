@@ -1,0 +1,190 @@
+
+
+
+MR --> Parallel Distributed Fault Tolerant processing engine
+
+
+
+
+
+Find users who tend to visit more good pages
+
+visits	==> user,url,ts,...
+urls	==> url,pagerank
+
+load,join,group,avg(pageRank),filter,dump
+
+Series of MR jobs
+-----------------
+Input	==>	MR1	==> MR2		==> MR3		==> MR4	==> final output on HDFS
+
+
+HADOOP ==> HDFS+YARN (MR)
+
+MR	--> UNSTRUCTURED DATA  (Audio/Video/Images/PlainText files)
+	--> COMPLEX BUSINESS LOGIC
+
+PIG 	--> ETL
+
+HIVE	--> COMPLEX QUERIES
+IMPALA 
+
+HBASE	--> REAL TIME/FAST SUBSET OF DATA PROCESSING WITH CRUD  (APACHE PHEONIX)
+
+
+STORM	--> LIVE STREAM PROCESSING
+
+MAHOUT	--> MLL
+
+GIRAH	--> COMPLEX DATA STRUCTURES 
+
+
+
+Apacke Spark --> It is a general purpose cluster IN-MEMORY computing system
+
+Multiple Workloads
+
+	==> SparkSQL
+	==> SparkML
+	==> SparkStreaming
+	==> SparkGraph
+
+
+AT ITS CORE, SPARK IS A "COMPUTATIONAL ENGINE"
+
+	==> SCHEDULING
+	==> DISTRIBUTING
+	==> MONITORING OF APPLICATIONS  (Taking care of failover, status updates)
+
+
+
+SCALA 
+	--> SCALABLE LANGUAGE 
+	--> Runs on JVM + .Net
+	--> OOPs + Functional 
+	--> Spark, Kafka 
+	
+
+FUNCTIONAL PROGRAMMING LANGUAGE (HIGHER ORDER FUNCTIONS)
+===============================
+1. Functions can be treated as First Class values (treated just like any other data type)
+
+	   FUNCTIONS ITSELF CAN BE USED AS VARIABLES --> FUNCTIONS CAN BE USED AS ARGUMENTS 
+
+	==> Higher Order Functions (functions which takes one/more functions as args)
+	    DEF FUNC1( V1 INT, V2 FLOAT, V3 FUNC_XYZ, V4 STRING, V5 FUNC_ABC)
+
+2. Immutable Data Structures 
+
+
+
+
+
+Spark with Hadoop
+=================
+
+1. First we define SparkContext that we are running on Hadoop (Using MASTER variable)
+   Running on Hadoop means using YARN
+
+2. Spark will depend on YARN for allocating Resources (ResourceManager alloccates 
+   resources for Spark in the cluster). Containers are provided by the NodeManagers.
+
+3. Once the Resources are allocated, Spark takes care of scheduling,distributing and monitoring 
+   of the applications (No need of ApplicationMaster) 
+
+
+spark2-shell
+
+
+
+cd /usr/local/spark/bin
+
+
+./spark-shell 
+
+
+
+PIG PROGRAMMING
+===============
+
+1. LOAD			==> SPECIFY WHICH DATA TO PROCESS AND WHAT IS ITS SCHEMA
+
+2. TRANSFORMATIONS 	==> BASED ON THE BUSINESS LOGIC
+			==> LAZY OPERATION
+
+3. DUMP/STORE		==> STARTS EXECUTION
+
+
+SPARK PROGRAMMING
+=================
+
+1. CREATE RDD		==> SPECIFY WHICH DATA TO PROCESS 
+
+			1. By parallelizing the COLLECTION
+			2. By reading from HDFS/LFS/NoSQL
+
+
+2. TRANSFORMATIONS 	==> BASED ON THE BUSINESS LOGIC
+			==> LAZY OPERATIONS
+
+			==> TRANSFORMATIONS ARE NOTHING BUT CREATING A NEW RDD FROM AN EXISTING RDD
+
+3. ACTIONS		==> STARTS EXECUTION
+			==> collect(),count(), first(), saveAsTextFile("path")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

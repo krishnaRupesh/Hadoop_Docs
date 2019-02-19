@@ -1,0 +1,173 @@
+pig -x local
+Case Sensitive:   The names / aliases of relations and fields, names of Pig functions
+Case Insensitive: Pig reserved keywords
+
+student
+
+Joe,18,2.5
+Sam,,3.0
+Angel,21,7.9
+John,17,9.0
+Joe,19,2.9
+
+Joe,45
+Sam,24
+Angel,1
+John,12
+Joe,19
+
+History
+1   A = load 'student' USING PigStorage(',')as (name:chararray, age:int, gpa:float);
+2   X = group A by name;
+
+
+
+
+
+
+
+Data: custs_temp
+----------------
+4000001,Kristina,Chung,55,Pilot4000002,Paige,Chen,74,Teacher4000003,Sherri,Melton,34,Pilot4000004,Gretchen,Hill,66,Computer hardware engineer4000005,Karen,Puckett,74,Teacher4000006,Patrick,Song,42,Computer hardware engineer4000007,Elsie,Hamilton,43,Pilot4000008,Hazel,Bender,63,Teacher4000009,Malcolm,Wagner,39,Computer hardware engineer4000010,Dolores,McLaughlin,60,Pilot4000011,Francis,McNamara,47,Teacher4000012,Sandy,Raynor,26,Computer hardware engineer4000013,Marion,Moon,41,Pilot4000014,Beth,Woodard,65,Pilot4000015,Julia,Desai,49,Teacher
+
+
+
+mydata = load '/pig/custs_temp' using PigStorage(',') as (f1:chararray,f2:chararray,f3:chararray,f4:int,f5:chararray);
+
+B = FOREACH mydata GENERATE f2,f3,f5;
+
+C = group B by f5;
+
+dump C;
+
+(Pilot,{(4000001,Kristina,Chung,55,Pilot),(4000003,Sherri,Melton,34,Pilot)})
+(Teacher,{(4000005,Karen,Puckett,74,Teacher),(4000002,Paige,Chen,74,Teacher)})
+(Computer hardware engineer,{(4000004,Gretchen,Hill,66,Computer hardware engineer),(4000006,Patrick,Song,42,Computer hardware engineer)})
+
+
+Example: Outer BagIn this example A is a relation or bag of tuples. You can think of this bag as an outer bag.A = LOAD '/pig/pigdata' as (f1:int, f2:int, f3:int);DUMP A;(1,2,3)(4,2,1)(8,3,4)(4,3,3)Example: Inner BagNow, suppose we group relation A by the first field to form relation X.In this example X is a relation or bag of tuples. The tuples in relation X have two fields. The first field is type int. The second field is type bag; you can think of this bag as an inner bag.X = GROUP A BY f1;DUMP X;(1,{(1,2,3)})(4,{(4,2,1),(4,3,3)})(8,{(8,3,4)})
+group,A
+
+
+
+
+
+
+
+
+
+B = group A by (f1,f2);describe B;B: {group: (f1: int,f2: int),A: {f1: int,f2: int,f3: int}}
+
+i/p
+projectname:chararray, pagename:chararray, pagecount:int,pagesize:int
+en google.com 50 100en yahoo.com 60 100us google.com 70 100en google.com 68 100
+us twitter.com 90 100
+en yahoo.com 40 100us yahoo.com 40 100
+en google.com 32 100
+en yahoo.com 100 100us yahoo.com 40 100
+en mahout.com 100 100
+PS : 	Find total of pagecount for unique page names only for 'en' records
+	put result in the descending order of pagecount
+
+yahoo.com 200
+google.com 150mahout.com 100records = LOAD '/pig/webcount' using PigStorage(' ') as  (projectname:chararray, pagename:chararray, pagecount:int,pagesize:int);filtered_records = FILTER records by projectname=='en';
+
+(en,google.com,50,100)
+(en,yahoo.com,60,100)
+(en,google.com,68,100)
+(en,yahoo.com,40,100)
+(en,google.com,32,100)
+(en,yahoo.com,100,100)
+(en,mahout.com,100,100)
+grouped_records = GROUP filtered_records by pagename;     //    key	           Bag
+//    group                filtered_records
+(yahoo.com,{(en,yahoo.com,100,100),(en,yahoo.com,40,100),(en,yahoo.com,60,100)})
+(google.com,{(en,google.com,32,100),(en,google.com,68,100),(en,google.com,50,100)})
+(mahout.com,{(en,mahout.com,100,100)})
+
+
+results = FOREACH grouped_records GENERATE group,SUM(filtered_records.pagecount) ;sorted_result = ORDER results by $1 desc;STORE sorted_result INTO '/YOUROUTPUT';//welcome to hadoop learningword====welcometohadooplearningwordcount=========myinput = load '/data/first.txt' as (myline);//TOKENIZE splits the line into a field for each word. //flatten will take the collection of records returned by TOKENIZE and//produce a separate record for each one, calling the single field in the//record word.
+
+myline
+edureka welcome all to hadoop learning.
+
+words = foreach myinput generate flatten(TOKENIZE(myline)) as Column_word;
+
+
+Column_word
+===========
+edureka 
+welcome 
+all 
+to 
+hadoop 
+learning.
+grpd = group words by Column_word;
+
+column names ==> group(key) and words(Bag)
+cntd = foreach grpd generate group, COUNT(words);dump cntd;A. Load Customer records========================cust = load '/pig/custs' using PigStorage(',') as (custid:chararray, firstname:chararray, lastname:chararray,age:long,profession:chararray);
+'/home/edureka/pig/custs'
+
+B. Select only 100 records==========================lmt = limit cust 100;dump lmt;c. Group customer records by profession=======================================groupbyprofession = group cust by profession;
+
+First it write profession value in column group
+Second it puts all the records(tuples) with same value as profession into a bag  ( it names bag as cust )
+D. Count no of customers by profession======================================
+
+column names ==> group(key) and cust(Bag)
+countbyprofession = foreach groupbyprofession generate group, COUNT(cust);dump countbyprofession;E. Load transaction records===========================txn = load '/pig/txns' using PigStorage(',') as(txnid:chararray,date:chararray,custid:chararray,amount:double,category:chararray,product:chararray,city:chararray,state:chararray,type:chararray);F. Group transactions by customer=================================txnbycust = group txn by custid;G. Sum total amount spent by each customer==========================================spendbycust = foreach txnbycust generate group, SUM(txn.amount);H. Order the customer records beginning from highest spender============================================================custorder = order spendbycust by $1 desc;I. Select only top 100 customers================================top100cust = limit custorder 100;J. Join the transactions with customer details==============================================top100join = join top100cust by $0, cust by $0;describe top100join;K. Select the required fields from the join for final output============================================================top100 = foreach top100join generate $0,$3,$4,$5,$6,$1;describe top100;
+L.Dump the final output=======================dump top100;
+
+finaldata = order top100 by $5 desc;
+
+first.json
+==========
+
+{"name" : "Jason Lengstorf","age" : 24,"gender" : "male"}
+{"name" : "Kyle Lengstorf","age" : 21,"gender" : "male"}
+
+first_table = LOAD 'first.json'  USING JsonLoader('name:chararray, age:int, gender:chararray');
+
+second.json
+===========
+
+{"recipe":"Peanut Butter Cookies","ingredients":[{"name":"Eggs"},{"name":"Sugar"},{"name":"Peanut"}],"inventor":{"name":"Ajith","age":12}}
+{"recipe":"TomatoSoup","ingredients":[{"name":"Tomatoes"},{"name":"Milk"}],"inventor":{"name":"Revathi","age":35}}
+
+second_table = LOAD 'second.json' USING JsonLoader('recipe:chararray,ingredients: {(name:chararray)}, inventor: (name:chararray, age:int)');
+
+
+third.txt
+=========
+Rava Dosa
+Bengali Cabbage
+Dal Fry
+
+third_table = LOAD 'third.txt' USING PigStorage() AS (recipe:chararray);
+
+STORE third_table INTO 'third.json' USING JsonStorage();
+
+
+[name#abhay]  
+[name#satyam]
+
+mapload = load '/pig/mapfile' as (a:map[]);  
+values = foreach mapload generate a#'name' as value;  
+value = FILTER values BY value is not null;  
+dump value 
+
+
+xmlloader
+=========
+
+
+REGISTER XMLloader.jar;
+
+pigdata = load '/pig/xml4.xml' USING XMLLoader('Property') as (doc:chararray);
+
+
+values = foreach pigdata GENERATE FLATTEN(REGEX_EXTRACT_ALL(doc,'<Property>\\s*<fname>(.*)</fname>\\s*<lname>(.*)</lname>\\s*<landmark>(.*)</landmark>\\s*<city>(.*)</city>\\s*<state>(.*)</state>\\s*<contact>(.*)</contact>\\s*<email>(.*)</email>\\s*<PAN_Card>(.*)</PAN_Card>\\s*<URL>(.*)</URL>\\s*</Property>')) AS (fname:chararray, lname:chararray, landmark:chararray, city:chararray, state:chararray, contact:int, email:chararray, PAN_Card:long, URL:chararray);
+
+
+
+

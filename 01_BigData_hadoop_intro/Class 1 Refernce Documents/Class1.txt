@@ -1,0 +1,130 @@
+1. Data will be stored and processed only in slave machines.
+2. File will be split into blocks 128mb max size ( which is configurable )
+
+200mb web.log
+
+128mb --> Block1
+72md  --> Block2
+
+
+Total Capacity of the cluster 48tb
+
+
+
+3. Each block replicated to 3 times ( configurable  --> replication factor )
+
+abc.dat 16tb   
+
+16*3 = 48 tb
+
+
+
+4. Each Repl is written in a separate slave machine --> for fault tolerance
+5. when you process/read data, any one of the repl will be considered for a block.
+
+
+1. Datanodes can be in multiple racks
+2. Namenode manages metadata  ( Namespace --> files and directory structure)
+3. Client ( hadoop library/ hadoop programs --> which acts as interface b/w user and hdfs )
+4. 
+	a. User request read/write
+        b. Client gets metata from NN
+        c. Client reads/writes data from/to datanodes and gives to users
+
+1. Namenode manages FSImages + EditLogs
+	a. when cluster starts/restart, NN takes complete snapshot of fs from cluster into FSImage
+        b. Any add/delete files will be updated to Editlogs
+
+a. copy file 500mb emp.dat into hadoop
+    
+   a. Client split data into 8 blocks
+
+   b. Writes Each block with 3 repl. 
+  
+
+b. Reading a file size 100 mb 
+
+Read 2 blocks
+
+Note:
+
+1. Processing of blocks of data will be in parallel.
+
+2. Blocks are written in parallel, but the block replication happen in sequence.
+Linux --> kbs
+
+Hadoop --> 64 mbs  --> optimised to access batches of data set  ( high throughput )
+
+
+
+id,fn,ln,dept,sal,prof,intro
+
+
+<books>
+
+<book>
+<a>
+</a>
+<p>
+</p>
+<y>
+</y>
+<desc>
+</desc>
+</book>
+
+<book>
+<a>
+</a>
+<p>
+</p>
+<y>
+</y>
+<desc>
+</desc>
+</book>
+
+<book>
+<a>
+</a>
+<p>
+</p>
+<y>
+</y>
+<desc>
+</desc>
+</book>
+
+</books>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

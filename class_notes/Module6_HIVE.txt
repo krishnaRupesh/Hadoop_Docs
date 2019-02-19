@@ -1,0 +1,139 @@
+
+In hadoop everything is xml based configuration
+
+when you read write	==> hadoop fs
+
+when you process mr	==> hadoop jar
+
+when you run pig	==> pig
+
+when you run hive	==> hive
+
+nameservice 	==> xml based configuration (core-site.xml)
+
+
+
+
+PIG PROGRAMMING
+===============
+
+1. COPY DATA TO HADOOP
+2. WRITE SCRIPT FILE	==> INSIDE SCRIPT WE DEFINE WHAT DATA AND WHAT IS ITS SCHEMA IN LOAD COMMAND
+3. RUN SCRIPT
+
+
+HIVE PROGRAMMING
+================
+
+1. CREATE TABLE AND DEFINE THE SCHEMA  (Hive keeps all the info about table in METASTORE)
+
+	==> METASTORE is complete table details
+
+2. LOAD THE DATA 
+
+3. RUN THE SQL QUERY
+
+
+
+
+1. INTERNAL/MANAGED TABLES   ==> Hive will have control on the data
+
+when you create table and insert data
+
+	1. hive manages metadata in derby and actual data in HDFS
+	2. Hive INTERNAL TABLES manages actual data in a folder called warehouseDirectory IN HDFS 
+	3. Default WAREHOUSE_DIRECTORY is /user/hive/warehouse
+
+when you run the query
+
+	1. hive first gets metadata of table from Derby
+	2. Then it gets actual data from HDFS based on the query
+
+when you drop table
+
+	1. Hive deletes metadata from Derby
+	2. Hive deletes actual data from HDFS
+
+2. EXTERNAL TABLES	==> If the data already in HDFS
+			==> No WarehouseDirectory
+			==> User will have complete control over the data
+
+While creating the table we need to specify the path of the data in HDFS
+	1. Hive manages metadata in derby and actual data in HDFS (mapped in the create query)
+
+we can process the same path by using other stack like MR,Pig	
+ 
+when you drop table
+
+	1. Hive deletes metadata from Derby
+
+
+
+
+PARTITIONS	==> SPLITTING THE DATA BASED ON THE VALUE OF A COLUMN
+
+
+MANUAL PARTITIONING
+-------------------
+while loading the data we specify value for the partitioning column 
+(Because the actual data does not contain the value )
+
+
+
+DYNAMIC PARTITIONIN
+--------------------
+
+Partition based on the value of a column in a table 
+
+
+
+BUCKETING 	==> DATA SAMPLING
+=================================
+
+TXNS	==> 10 MILLION RECORDS WITH 10K CUSTOMERS 
+
+10 % OF THE CUSTID (Means randomised 1000 customers data if we want to process)
+
+
+
+1. WHILE CREATING THE TABLE
+
+clustered by (CUSTID) INTO 10 buckets
+
+HIVE WILL RUN 10 REDUCER ==> 10 OUTPUTS ==> INTERMEDIATE DATA OF THE SAME KEY GOES TO SAME REDUCER
+
+2. WHILE RUNNING THE QUERY
+
+TABLESAMPLE(BUCKET 1 OUT OF 10 ON CUSTID);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
