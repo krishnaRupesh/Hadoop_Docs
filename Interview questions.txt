@@ -1,0 +1,28 @@
+what is the second max salary for different catagory of the employees.
+
+list out the top 2 salary persons in each department
+
+list out the duplicates in a table.
+
+better optimazing techniques in hive.
+
+why dont we have reducers while copying data to hdfs
+
+can we restrict the number of mappers in mapreduce . if so how?
+
+how to get line by line in from a file in shell
+
+
+
+
+Legato
+---------------
+1) what is RDD?
+
+2) what are the transformations used in spark?
+
+3) differene between groupbykey and reducebykey in spark?
+
+4) what are the non return functions . what are its use ? where it used ? examples of it other tjan printf functions?
+
+5) when u submit a spark submit command we will pass the 4gb memory like this . how this memory is allocated?

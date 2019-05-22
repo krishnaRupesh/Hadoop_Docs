@@ -2,3 +2,15 @@ Hadoop Commands,
 
 hadoop fs -put /home/cloudera/Desktop/data3.txt /user/cloudera/
 hadoop fs -copyFromLocal /home/cloudera/Desktop/data2.txt /user/cloudera
+
+hadoop jar AlfabetCount.jar hadoop.alfaCount.AlfaDriver  mapReduce/AlfabetCount/Input/  mapReduce/AlfabetCount/Output/
+
+
+hadoop jar SubPatients.jar hadoop.subpat.SubPatDriver  mapReduce/Subpatients/Input/  mapReduce/Subpatients/Output/
+
+MaxTemp
+
+hadoop jar MaxTemp.jar hadoop.maxTemp.MaxTempDriver  mapReduce/MaxTemperature/Input  mapReduce/MaxTemperature/Output/
+
+
+hadoop jar HotCold.jar hadoop.hotcold.HotColdDriver  mapReduce/HotAndColdDays/Input  mapReduce/HotAndColdDays/Output
