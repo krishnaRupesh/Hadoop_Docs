@@ -1,0 +1,13 @@
+what is the second max salary for different catagory of the employees.
+
+list out the top 2 salary persons in each department
+
+list out the duplicates in a table.
+
+better optimazing techniques in hive.
+
+why dont we have reducers while copying data to hdfs
+
+can we restrict the number of mappers in mapreduce . if so how?
+
+how to get line by line in from a file in shell
