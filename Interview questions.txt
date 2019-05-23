@@ -25,3 +25,20 @@ Legato
 
 5) when u submit a spark submit command we will pass the 4gb memory like this . how this memory is allocated?
 
+
+
+L&T Infotech
+==========================
+1)Difference between order by and sort by in hive?
+
+2)different file forments in hive . when to choose which one. ?
+
+3)How do you know that data is skewed?
+
+4)different between running spark job running on client mode and cluster mode?
+
+5)select top 2 employees name and salary in each department.
+
+6)how spark is fault tolerant?
+
+7)In a table empname , empid , position , date are there . select the employees position on latest status.

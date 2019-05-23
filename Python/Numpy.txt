@@ -1,0 +1,21 @@
+array
+linspace
+logspace
+arange
+zeros
+ones
+
+arr = array([1,2,3,4,5,6])
+
+art =linspace(0,16,10) // here 0 to 16 is divided into 10 parts (think of the stright line and cutting it into pieces)
+
+
+art =linspace(0,16) // if number of pieces is not defined it is consided as 50 pieces.
+
+
+ary = arange(1,15,2) // step size is 2 
+
+ar = logspace( 1, 40 ,5)  //it is same as linspace but logertemic  . here 10 raise to power of 1 to 10 raise to the power of 10 and divided into 5 parts.
+
+arty= zeros(5 , int) //all zeros with array size as fine. ingeneral we will get float . data type specifies it as int.
+arty= ones(5) // all ones with float 
