@@ -1,0 +1,51 @@
+what is the second max salary for different catagory of the employees.
+
+list out the top 2 salary persons in each department
+
+list out the duplicates in a table.
+
+better optimazing techniques in hive.
+
+why dont we have reducers while copying data to hdfs
+
+can we restrict the number of mappers in mapreduce . if so how?
+
+how to get line by line in from a file in shell
+
+
+Legato
+---------------
+1) what is RDD?
+Resilent distributed dataset.
+resilent :- to achieve fault tolarance it uses the process of lazy evalution by forming Leniage or DAG
+Distrubution system
+dataset :- u can execute any type of data structured or semistructured.
+
+=========================================================================================
+2) what are the transformations used in spark?
+https://spark.apache.org/docs/latest/rdd-programming-guide.html#transformations
+
+======================================================================================
+3) differene between groupbykey and reducebykey in spark?
+
+4) what are the non return functions . what are its use ? where it used ? examples of it other tjan printf functions?
+
+5) when u submit a spark submit command we will pass the 4gb memory like this . how this memory is allocated?
+
+
+
+L&T Infotech
+==========================
+1)Difference between order by and sort by in hive?
+
+2)different file forments in hive . when to choose which one. ?
+
+3)How do you know that data is skewed?
+
+4)different between running spark job running on client mode and cluster mode?
+
+5)select top 2 employees name and salary in each department.
+
+6)how spark is fault tolerant?
+
+7)In a table empname , empid , position , date are there . select the employees position on latest status.
